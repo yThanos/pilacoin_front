@@ -124,7 +124,6 @@ export default function TabOneScreen() {
 }
 
 const styles = StyleSheet.create({
-  //round box with centered text
   saldo: {
     width: 300,
     height: 200,
