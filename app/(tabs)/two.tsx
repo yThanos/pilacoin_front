@@ -2,30 +2,44 @@ import { StyleSheet } from 'react-native';
 
 import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text, View } from '../../components/Themed';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
+interface Usuario {
+  nome: string;
+  chavePublica: string;
+}
 
 export default function TabTwoScreen() {
+  const [usuarios, setUsuarios] = useState<Usuario[]>([]);
+  const head = {
+    headers: { 'Content-Type': 'application/json' }
+  }
+  const loadUsers = () => {
+    axios.get<Usuario[]>('http://192.168.0.17:8080/teste/users', head).then((response)=>{
+      //console.log(response.data);
+      setUsuarios(response.data);
+    }).catch((erro: any)=>{
+      console.log(erro);
+    })
+  }
+
+  useEffect(()=>{
+    loadUsers();
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/two.tsx" />
+    <View style={{justifyContent: 'center', alignItems: 'center'}}>
+      <View>
+        <Text>Usuários</Text>
+        {usuarios.map((usuario, index) => (
+          <Text style={{color: 'white'}} key={index}>{usuario.nome}</Text>
+        ))}
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
+  
 });
