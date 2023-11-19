@@ -1,8 +1,7 @@
-import { StyleSheet } from 'react-native';
-import { Text, View } from '../../components/Themed';
+import { StyleSheet, View } from 'react-native';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Button, Modal, Portal, TextInput } from 'react-native-paper';
+import { Button, Modal, Portal, TextInput, Text } from 'react-native-paper';
 
 interface Usuario {
   nome: string;
@@ -42,8 +41,8 @@ export default function TabTwoScreen() {
   return (
     <View style={{justifyContent: 'center', alignItems: 'center'}}>
       <Portal>
-        <Modal style={{width: 300, height: 300, zIndex: 1, alignSelf: 'center'}} visible={modalVisible} onDismiss={() => {}}>
-          <View>
+        <Modal visible={modalVisible} dismissable={false} onDismiss={() => {}}>
+          <View style={{width: 300, height: 300, zIndex: 1, alignSelf: 'center', justifyContent: 'center', alignItems: 'center', backgroundColor: '#043F63', borderRadius: 15}}>
             <View>
               <Text style={{color: 'white'}}>Nome: {selectedUser?.nome}</Text>
               <TextInput style={{color: 'white'}} label="Quantidade" value={quantidade} onChangeText={(change)=>{setQuantidade(change)}} keyboardType='numeric'/>
@@ -53,12 +52,12 @@ export default function TabTwoScreen() {
           </View>
         </Modal>
       </Portal>
-      <View>
-        <Text>Usuários</Text>
+      <View style={{alignItems: 'center'}}>
+        <Text style={{color: 'white', fontSize: 24, margin: 5}}>Area de tranferencia</Text>
         {usuarios.map((usuario, index) => (
-          <View key={index}>
-            <Text>{usuario.nome}</Text>
-            <Button onPress={() => {setModalVisible(true)}}>Tranferir</Button>
+          <View key={index} style={{justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row', width: 350, height: 80, borderRadius: 20, backgroundColor: "#043F63", padding: 20, margin: 10}}>
+            <Text style={{color: 'white'}}>{usuario.nome}</Text>
+            <Button onPress={() => {setModalVisible(true);setSelectedUser(usuario)}}>Tranferir</Button>
           </View>
         ))}
       </View>

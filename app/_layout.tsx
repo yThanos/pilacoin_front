@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { SplashScreen } from 'expo-router';
+import { SplashScreen, Stack } from 'expo-router';
 import { useEffect } from 'react';
 import { Drawer } from 'expo-router/drawer';
 import { useColorScheme } from 'react-native';
@@ -47,19 +47,25 @@ function RootLayoutNav() {
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <PaperProvider theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Drawer drawerContent={CustomDrawerContent}>
-          <Drawer.Screen name="(tabs)" 
-            options={{
-              title: "",
-              headerTintColor: '#fff',
-              headerStyle: {
-                  backgroundColor: '#043F63',
-                  elevation: 0,
-              }
-            }}
-          />
-        </Drawer>
+        <Stack>
+          <Stack.Screen name='(tabs)' options={{headerShown: false}}/>
+        </Stack>
       </PaperProvider>
     </ThemeProvider>
   );
 }
+
+/*
+<Drawer drawerContent={CustomDrawerContent}>
+  <Drawer.Screen name="(tabs)" 
+    options={{
+      title: "",
+      headerTintColor: '#fff',
+      headerStyle: {
+          backgroundColor: '#043F63',
+          elevation: 0,
+      }
+    }}
+  />
+</Drawer>
+*/

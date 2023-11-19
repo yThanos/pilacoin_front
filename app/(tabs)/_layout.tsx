@@ -29,9 +29,13 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
+          headerTintColor: '#fff',
+          headerStyle: {
+            backgroundColor: '#043F63',
+          },
+          headerTitle: "Pilacoin",
           tabBarStyle: {height: 70, backgroundColor: "#043F63"},
           tabBarLabel: "Home",
-          headerShown: false,
           tabBarLabelStyle: {color: "#fff", paddingBottom: 5},
           tabBarIcon: ({ focused }) => <TabItem icon="home" focused={focused} />,
         }}
@@ -39,9 +43,13 @@ export default function TabLayout() {
       <Tabs.Screen
         name="two"
         options={{
+          headerTintColor: '#fff',
+          headerStyle: {
+            backgroundColor: '#043F63',
+          },
+          headerTitle: "Tranferencia",
           tabBarStyle: {height: 70, backgroundColor: "#043F63"},
           tabBarLabel: "Tranferir",
-          headerShown: false,
           tabBarLabelStyle: {color: "#fff", paddingBottom: 5},          
           tabBarIcon: ({ focused }) => <TabItem icon="swap-horizontal" focused={focused} />,
         }}
@@ -49,9 +57,13 @@ export default function TabLayout() {
       <Tabs.Screen
         name="three"
         options={{
+          headerTintColor: '#fff',
+          headerStyle: {
+            backgroundColor: '#043F63',
+          },
+          headerTitle: "Mensagens",
           tabBarStyle: {height: 70, backgroundColor: "#043F63"},
           tabBarLabel: "Mensagens",
-          headerShown: false,
           tabBarLabelStyle: {color: "#fff", paddingBottom: 5},
           tabBarIcon: ({ focused }) => <TabItem icon="chat" focused={focused} />,
         }}

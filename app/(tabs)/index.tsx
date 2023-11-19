@@ -110,14 +110,15 @@ export default function TabOneScreen() {
 
           <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 30}}>
           {mining?(
-            <Image source={require('../../assets/images/mining.gif')} style={{width: 300, height: 300, marginTop: 30}}/>
+            <Image source={require('../../assets/images/mining.gif')} style={{width: 300, height: 300}}/>
           ) : (
-            <Image source={require('../../assets/images/sleepy2.gif')} style={{width: 300, height: 300, marginTop: 30}}/>
+            <Image source={require('../../assets/images/sleepy2.gif')} style={{width: 300, height: 300}}/>
           )
           }
         </View>
         </>
        )}
+       <View style={{height: 20}}/>
       </ScrollView>
     </View>
   );
