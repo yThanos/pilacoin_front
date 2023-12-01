@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from "axios";
-import { createContext, useContext } from "react";
+import { ReactNode, createContext, useContext } from "react";
 
 interface AppContextProps {
     API: AxiosInstance;
@@ -8,12 +8,12 @@ interface AppContextProps {
 const AppContext = createContext<AppContextProps | null>(null);
 
 interface AppProviderProps {
-    children: React.ReactNode;
+    children: ReactNode;
 }
 
 const AppProvider = (props: AppProviderProps) => {
     const API = axios.create({
-        baseURL: 'http://192.168.0.17:8080/',
+        baseURL: 'http://172.27.4.51:8080/',
         headers: { 'Content-Type': 'application/json' }
     });
     

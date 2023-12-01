@@ -8,11 +8,21 @@ interface Pilacoin {
   status: string;
 }
 
+interface MineState {
+  minerandoPila: boolean;
+  minerandoBloco: boolean;
+  validandoPila: boolean;
+  validandoBloco: boolean;
+}
+
 export default function TabOneScreen() {
   const [saldo, setSaldo] = useState<number | null>(null);
   const [isLoading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [mining, setMining] = useState(true);
+  const [validating, setValidating] = useState(false);
+  const [miningBlock, setMiningBlock] = useState(false);
+  const [validatingBlock, setValidatingBlock] = useState(false);
   const [pilas, setPilas] = useState<Pilacoin[]>([]);
   const { API } = getAPI();
 
@@ -55,10 +65,40 @@ export default function TabOneScreen() {
     })
   }
 
-  const checkState = () => {
-    API.get<boolean>('teste/mineState').then((response)=>{
+  const validar = () => {
+    API.get<boolean>('teste/validarPila').then((response)=>{
       console.log(response.data);
-      setMining(response.data);
+      setValidating(response.data);
+    }).catch((erro: any)=>{
+      console.log(erro);
+    })
+  }
+
+  const minerarBlock = () => {
+    API.get<boolean>('teste/minerarBloco').then((response)=>{
+      console.log(response.data);
+      setMiningBlock(response.data);
+    }).catch((erro: any)=>{
+      console.log(erro);
+    })
+  }
+
+  const validarBlock = () => {
+    API.get<boolean>('teste/validarBloco').then((response)=>{
+      console.log(response.data);
+      setValidatingBlock(response.data);
+    }).catch((erro: any)=>{
+      console.log(erro);
+    })
+  }
+
+  const checkState = () => {
+    API.get<MineState>('teste/mineState').then((response)=>{
+      console.log(response.data);
+      setMining(response.data.minerandoPila);
+      setMiningBlock(response.data.minerandoBloco);
+      setValidating(response.data.validandoPila);
+      setValidatingBlock(response.data.validandoBloco);
     }).catch((erro: any)=>{
       console.log(erro);
     })
@@ -100,7 +140,7 @@ export default function TabOneScreen() {
        {isLoading ? <ActivityIndicator size={'large'}/> : (
         <>
         <View style={{width: 300,flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center'}}>
-          <Text style={{color: 'white', fontSize: 20, marginTop: 30}}>Minerar</Text>
+          <Text style={{color: 'white', fontSize: 20, marginTop: 30}}>Minerar Pilacoins</Text>
           <Switch
             value={mining}
             onValueChange={() => {
@@ -108,16 +148,45 @@ export default function TabOneScreen() {
             }}
             style={{marginTop: 20}}
           />
-        </View>  
-
-          <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 30}}>
+        </View> 
+        <View style={{width: 300,flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center'}}>
+          <Text style={{color: 'white', fontSize: 20, marginTop: 30}}>Validar Pilacoins</Text>
+          <Switch
+            value={mining}
+            onValueChange={() => {
+              validar();
+            }}
+            style={{marginTop: 20}}
+          />
+        </View> 
+        <View style={{width: 300,flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center'}}>
+          <Text style={{color: 'white', fontSize: 20, marginTop: 30}}>Minerar Blocos</Text>
+          <Switch
+            value={mining}
+            onValueChange={() => {
+              minerarBlock();
+            }}
+            style={{marginTop: 20}}
+          />
+        </View> 
+        <View style={{width: 300,flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center'}}>
+          <Text style={{color: 'white', fontSize: 20, marginTop: 30}}>Validar Blocos</Text>
+          <Switch
+            value={mining}
+            onValueChange={() => {
+              validarBlock();
+            }}
+            style={{marginTop: 20}}
+          />
+        </View> 
+          {/*<View style={{justifyContent: 'center', alignItems: 'center', marginTop: 30}}>
           {mining?(
             <Image source={require('../../assets/images/mining.gif')} style={{width: 300, height: 300}}/>
           ) : (
             <Image source={require('../../assets/images/sleepy2.gif')} style={{width: 300, height: 300}}/>
           )
           }
-        </View>
+        </View>*/}
         </>
        )}
        <View style={{height: 20}}/>
