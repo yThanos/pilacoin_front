@@ -8,6 +8,7 @@ import { Drawer } from 'expo-router/drawer';
 import { useColorScheme } from 'react-native';
 import { PaperProvider } from 'react-native-paper';
 import CustomDrawerContent from './drawer.content';
+import AppProvider from '../context/app.context';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -43,29 +44,37 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
-
+  const drawer = false;
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <PaperProvider theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack>
-          <Stack.Screen name='(tabs)' options={{headerShown: false}}/>
-        </Stack>
+        <AppProvider>
+          {drawer ? (
+            <Drawer drawerContent={CustomDrawerContent}>
+              <Drawer.Screen name="(tabs)" 
+                options={{
+                  title: "",
+                  headerTintColor: '#fff',
+                  headerStyle: {
+                    backgroundColor: '#043F63',
+                    elevation: 0,
+                  }
+                }
+              }
+            />
+          </Drawer>
+          ) : (
+            <Stack
+              screenOptions={{
+                headerShown: false,
+              }}
+            >
+              <Stack.Screen name="(tabs)" />
+            </Stack>
+          
+          )}
+        </AppProvider>
       </PaperProvider>
     </ThemeProvider>
   );
 }
-
-/*
-<Drawer drawerContent={CustomDrawerContent}>
-  <Drawer.Screen name="(tabs)" 
-    options={{
-      title: "",
-      headerTintColor: '#fff',
-      headerStyle: {
-          backgroundColor: '#043F63',
-          elevation: 0,
-      }
-    }}
-  />
-</Drawer>
-*/

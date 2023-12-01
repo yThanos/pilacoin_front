@@ -1,7 +1,7 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { View, StyleSheet, ActivityIndicator, ScrollView, RefreshControl, Image } from "react-native";
 import { Text, Switch } from "react-native-paper";
+import { getAPI } from "../../context/app.context";
 
 interface Pilacoin {
   nonce: string;
@@ -13,14 +13,12 @@ export default function TabOneScreen() {
   const [isLoading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [mining, setMining] = useState(true);
-  const head = {
-    headers: { 'Content-Type': 'application/json' }
-  }
   const [pilas, setPilas] = useState<Pilacoin[]>([]);
+  const { API } = getAPI();
 
   const loadSaldo = () => {
     setLoading(true);
-    axios.get<Pilacoin[]>('http://192.168.0.17:8080/teste/pilas', head).then((response)=>{
+    API.get<Pilacoin[]>('teste/pilas').then((response: any)=>{
       //console.log(response.data);
       setPilas(response.data);
       setSaldo(response.data.length);
@@ -35,7 +33,7 @@ export default function TabOneScreen() {
     checkState();
     setLoading(true);
     setRefreshing(true);
-    axios.get<Pilacoin[]>('http://192.168.0.17:8080/teste/pilas', head).then((response)=>{
+    API.get<Pilacoin[]>('teste/pilas').then((response)=>{
       //console.log(response.data);
       setPilas(response.data);
       setSaldo(response.data.length);
@@ -49,7 +47,7 @@ export default function TabOneScreen() {
   }
 
   const minerar = () => {
-    axios.get<boolean>('http://192.168.0.17:8080/teste/minerar', head).then((response)=>{
+    API.get<boolean>('teste/minerar').then((response)=>{
       console.log(response.data);
       setMining(response.data);
     }).catch((erro: any)=>{
@@ -58,7 +56,7 @@ export default function TabOneScreen() {
   }
 
   const checkState = () => {
-    axios.get<boolean>('http://192.168.0.17:8080/teste/mineState', head).then((response)=>{
+    API.get<boolean>('teste/mineState').then((response)=>{
       console.log(response.data);
       setMining(response.data);
     }).catch((erro: any)=>{
@@ -84,13 +82,17 @@ export default function TabOneScreen() {
       >
         <View style={{width: 350}}>
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <View style={{width: '45%', marginTop: 30, backgroundColor: "#043F63", padding: 10, justifyContent: 'center', alignItems: 'center', borderRadius: 30}}>
-              <Text style={{color: 'white'}}>Pilas validos</Text>
+            <View style={{width: '30%', marginTop: 30, backgroundColor: "#043F63", padding: 10, justifyContent: 'center', alignItems: 'center', borderRadius: 30}}>
+              <Text style={{color: 'white', textAlign: 'center'}}>Pilas validos</Text>
               {isLoading ? <ActivityIndicator size={'large'}/> : <Text style={{color: 'white', fontSize: 40}}>{pilas.filter(pila => pila.status == 'VALIDO').length}</Text>}
             </View>
-            <View style={{width: '45%', marginTop: 30, backgroundColor: "#043F63", padding: 10, justifyContent: 'center', alignItems: 'center', borderRadius: 30}}>
-              <Text style={{color: 'white'}}>Pilas Minerados</Text>
-              {isLoading ? <ActivityIndicator size={'large'}/> : <Text style={{color: 'white', fontSize: 40}}>{pilas.filter(pila => pila.status == 'MINERADO').length}</Text>}
+            <View style={{width: '30%', marginTop: 30, backgroundColor: "#043F63", padding: 10, justifyContent: 'center', alignItems: 'center', borderRadius: 30}}>
+              <Text style={{color: 'white', textAlign: 'center'}}>Pilas Minerados</Text>
+              {isLoading ? <ActivityIndicator size={'large'}/> : <Text style={{color: 'white', fontSize: 40}}>{pilas.filter(pila => pila.status == 'AG_VALIDACAO').length}</Text>}
+            </View>
+            <View style={{width: '30%', marginTop: 30, backgroundColor: "#043F63", padding: 10, justifyContent: 'center', alignItems: 'center', borderRadius: 30}}>
+              <Text style={{color: 'white', textAlign: 'center'}}>Pilas em Bloco</Text>
+              {isLoading ? <ActivityIndicator size={'large'}/> : <Text style={{color: 'white', fontSize: 40}}>{pilas.filter(pila => pila.status == 'BLOCO_EM_VALIDACAO').length}</Text>}
             </View>
           </View>
         </View>

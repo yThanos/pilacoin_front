@@ -1,7 +1,8 @@
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Button, Modal, Portal, TextInput, Text } from 'react-native-paper';
+import { ScrollView } from 'react-native-gesture-handler';
+import { getAPI } from '../../context/app.context';
 
 interface Usuario {
   nome: string;
@@ -13,11 +14,9 @@ export default function TabTwoScreen() {
   const [selectedUser, setSelectedUser] = useState<Usuario | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [quantidade, setQuantidade] = useState("");
-  const head = {
-    headers: { 'Content-Type': 'application/json' }
-  }
+  const { API } = getAPI();
   const loadUsers = () => {
-    axios.get<Usuario[]>('http://192.168.0.17:8080/teste/users', head).then((response)=>{
+    API.get<Usuario[]>('teste/users').then((response)=>{
       //console.log(response.data);
       setUsuarios(response.data);
     }).catch((erro: any)=>{
@@ -26,13 +25,17 @@ export default function TabTwoScreen() {
   }
 
   const transferir = () => {
-    axios.post(`http://192.168.0.17:8080/teste/tranferir/${quantidade}`, {usuario: selectedUser}, head).then((response)=>{
+    API.post(`teste/tranferir/${quantidade}`, JSON.stringify(selectedUser)).then((response)=>{
       console.log(response.data);
       setModalVisible(false);
     }).catch((erro: any)=>{
       console.log(erro);
     })
   }
+
+  useEffect(()=>{
+    console.log(selectedUser);
+  }, [selectedUser]);
 
   useEffect(()=>{
     loadUsers();
@@ -54,17 +57,15 @@ export default function TabTwoScreen() {
       </Portal>
       <View style={{alignItems: 'center'}}>
         <Text style={{color: 'white', fontSize: 24, margin: 5}}>Area de tranferencia</Text>
-        {usuarios.map((usuario, index) => (
-          <View key={index} style={{justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row', width: 350, height: 80, borderRadius: 20, backgroundColor: "#043F63", padding: 20, margin: 10}}>
-            <Text style={{color: 'white'}}>{usuario.nome}</Text>
-            <Button onPress={() => {setModalVisible(true);setSelectedUser(usuario)}}>Tranferir</Button>
-          </View>
-        ))}
+        <ScrollView>
+          {usuarios.map((usuario, index) => (
+            <View key={index} style={{justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row', width: 350, height: 80, borderRadius: 20, backgroundColor: "#043F63", padding: 20, margin: 10}}>
+              <Text style={{color: 'white'}}>{usuario.nome}</Text>
+              <Button onPress={() => {setModalVisible(true);setSelectedUser(usuario)}}>Tranferir</Button>
+            </View>
+          ))}
+        </ScrollView>
       </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  
-});

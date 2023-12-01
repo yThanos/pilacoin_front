@@ -54,20 +54,6 @@ export default function TabLayout() {
           tabBarIcon: ({ focused }) => <TabItem icon="swap-horizontal" focused={focused} />,
         }}
       />
-      <Tabs.Screen
-        name="three"
-        options={{
-          headerTintColor: '#fff',
-          headerStyle: {
-            backgroundColor: '#043F63',
-          },
-          headerTitle: "Mensagens",
-          tabBarStyle: {height: 70, backgroundColor: "#043F63"},
-          tabBarLabel: "Mensagens",
-          tabBarLabelStyle: {color: "#fff", paddingBottom: 5},
-          tabBarIcon: ({ focused }) => <TabItem icon="chat" focused={focused} />,
-        }}
-      />
     </Tabs>
   );
 }
