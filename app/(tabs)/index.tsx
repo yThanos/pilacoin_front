@@ -152,7 +152,7 @@ export default function TabOneScreen() {
         <View style={{width: 300,flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center'}}>
           <Text style={{color: 'white', fontSize: 20, marginTop: 30}}>Validar Pilacoins</Text>
           <Switch
-            value={mining}
+            value={validating}
             onValueChange={() => {
               validar();
             }}
@@ -162,7 +162,7 @@ export default function TabOneScreen() {
         <View style={{width: 300,flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center'}}>
           <Text style={{color: 'white', fontSize: 20, marginTop: 30}}>Minerar Blocos</Text>
           <Switch
-            value={mining}
+            value={miningBlock}
             onValueChange={() => {
               minerarBlock();
             }}
@@ -172,7 +172,7 @@ export default function TabOneScreen() {
         <View style={{width: 300,flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center'}}>
           <Text style={{color: 'white', fontSize: 20, marginTop: 30}}>Validar Blocos</Text>
           <Switch
-            value={mining}
+            value={validatingBlock}
             onValueChange={() => {
               validarBlock();
             }}
