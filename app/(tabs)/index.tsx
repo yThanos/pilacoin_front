@@ -9,17 +9,17 @@ export interface Pilacoin {
 }
 
 interface MineState {
-  minerandoPila: boolean;
-  minerandoBloco: boolean;
-  validandoPila: boolean;
-  validandoBloco: boolean;
+  mineraPila: boolean;
+  mineraBloco: boolean;
+  validaPila: boolean;
+  validaBloco: boolean;
 }
 
 export default function TabOneScreen() {
   const [saldo, setSaldo] = useState<number | null>(null);
   const [isLoading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-  const [mining, setMining] = useState(true);
+  const [mining, setMining] = useState(false);
   const [validating, setValidating] = useState(false);
   const [miningBlock, setMiningBlock] = useState(false);
   const [validatingBlock, setValidatingBlock] = useState(false);
@@ -28,7 +28,7 @@ export default function TabOneScreen() {
 
   const loadSaldo = () => {
     setLoading(true);
-    API.get<Pilacoin[]>('teste/pilas').then((response: any)=>{
+    API.get('teste/pilas').then((response: any)=>{
       //console.log(response.data);
       setPilas(response.data);
       setSaldo(response.data.length);
@@ -43,7 +43,7 @@ export default function TabOneScreen() {
     checkState();
     setLoading(true);
     setRefreshing(true);
-    API.get<Pilacoin[]>('teste/pilas').then((response)=>{
+    API.get('teste/pilas').then((response)=>{
       //console.log(response.data);
       setPilas(response.data);
       setSaldo(response.data.length);
@@ -57,7 +57,7 @@ export default function TabOneScreen() {
   }
 
   const minerar = () => {
-    API.get<boolean>('teste/minerar').then((response)=>{
+    API.get('teste/mineraPila').then((response)=>{
       console.log(response.data);
       setMining(response.data);
     }).catch((erro: any)=>{
@@ -66,7 +66,7 @@ export default function TabOneScreen() {
   }
 
   const validar = () => {
-    API.get<boolean>('teste/validarPila').then((response)=>{
+    API.get('teste/validaPila').then((response)=>{
       console.log(response.data);
       setValidating(response.data);
     }).catch((erro: any)=>{
@@ -75,7 +75,7 @@ export default function TabOneScreen() {
   }
 
   const minerarBlock = () => {
-    API.get<boolean>('teste/minerarBloco').then((response)=>{
+    API.get('teste/mineraBloco').then((response)=>{
       console.log(response.data);
       setMiningBlock(response.data);
     }).catch((erro: any)=>{
@@ -84,7 +84,7 @@ export default function TabOneScreen() {
   }
 
   const validarBlock = () => {
-    API.get<boolean>('teste/validarBloco').then((response)=>{
+    API.get('teste/validaBloco').then((response)=>{
       console.log(response.data);
       setValidatingBlock(response.data);
     }).catch((erro: any)=>{
@@ -93,12 +93,12 @@ export default function TabOneScreen() {
   }
 
   const checkState = () => {
-    API.get<MineState>('teste/mineState').then((response)=>{
+    API.get('teste/mineState').then((response)=>{
       console.log(response.data);
-      setMining(response.data.minerandoPila);
-      setMiningBlock(response.data.minerandoBloco);
-      setValidating(response.data.validandoPila);
-      setValidatingBlock(response.data.validandoBloco);
+      setMining(response.data.mineraPila);
+      setMiningBlock(response.data.mineraBloco);
+      setValidating(response.data.validaPila);
+      setValidatingBlock(response.data.validaBloco);
     }).catch((erro: any)=>{
       console.log(erro);
     })

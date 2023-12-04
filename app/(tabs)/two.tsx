@@ -48,7 +48,7 @@ export default function TabTwoScreen() {
           <View style={{width: 300, height: 300, zIndex: 1, alignSelf: 'center', justifyContent: 'center', alignItems: 'center', backgroundColor: '#043F63', borderRadius: 15}}>
             <View>
               <Text style={{color: 'white'}}>Nome: {selectedUser?.nome}</Text>
-              <TextInput style={{color: 'white'}} label="Quantidade" value={quantidade} onChangeText={(change)=>{setQuantidade(change)}} keyboardType='numeric'/>
+              <TextInput style={{color: 'white'}} textColor='white' label="Quantidade" value={quantidade} onChangeText={(change)=>{setQuantidade(change)}} keyboardType='numeric'/>
               <Button onPress={transferir}>Transferir</Button>
             </View>
             <Button onPress={()=>setModalVisible(false)}>Fechar</Button>
