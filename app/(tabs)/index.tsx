@@ -3,7 +3,7 @@ import { View, StyleSheet, ActivityIndicator, ScrollView, RefreshControl, Image 
 import { Text, Switch } from "react-native-paper";
 import { getAPI } from "../../context/app.context";
 
-interface Pilacoin {
+export interface Pilacoin {
   nonce: string;
   status: string;
 }
