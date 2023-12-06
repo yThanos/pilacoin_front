@@ -61,11 +61,11 @@ export default function TabLayout() {
           headerStyle: {
             backgroundColor: '#043F63',
           },
-          headerTitle: "Minerar",
+          headerTitle: "Logs",
           tabBarStyle: {height: 70, backgroundColor: "#043F63"},
-          tabBarLabel: "Minerar",
+          tabBarLabel: "Logs",
           tabBarLabelStyle: {color: "#fff", paddingBottom: 5},          
-          tabBarIcon: ({ focused }) => <TabItem icon="pickaxe" focused={focused} />,
+          tabBarIcon: ({ focused }) => <TabItem icon="message-cog" focused={focused} />,
         }}
       />
     </Tabs>

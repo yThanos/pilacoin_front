@@ -124,15 +124,15 @@ export default function TabOneScreen() {
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <View style={{width: '30%', marginTop: 30, backgroundColor: "#043F63", padding: 10, justifyContent: 'center', alignItems: 'center', borderRadius: 30}}>
               <Text style={{color: 'white', textAlign: 'center'}}>Pilas validos</Text>
-              {isLoading ? <ActivityIndicator size={'large'}/> : <Text style={{color: 'white', fontSize: 40}}>{pilas.filter(pila => pila.status == 'VALIDO').length}</Text>}
-            </View>
-            <View style={{width: '30%', marginTop: 30, backgroundColor: "#043F63", padding: 10, justifyContent: 'center', alignItems: 'center', borderRadius: 30}}>
-              <Text style={{color: 'white', textAlign: 'center'}}>Pilas Minerados</Text>
-              {isLoading ? <ActivityIndicator size={'large'}/> : <Text style={{color: 'white', fontSize: 40}}>{pilas.filter(pila => pila.status == 'AG_VALIDACAO').length}</Text>}
+              {isLoading ? <ActivityIndicator size={'large'}/> : <Text style={{color: 'white', fontSize: 30}}>{pilas.filter(pila => pila.status == 'VALIDO').length}</Text>}
             </View>
             <View style={{width: '30%', marginTop: 30, backgroundColor: "#043F63", padding: 10, justifyContent: 'center', alignItems: 'center', borderRadius: 30}}>
               <Text style={{color: 'white', textAlign: 'center'}}>Pilas em Bloco</Text>
-              {isLoading ? <ActivityIndicator size={'large'}/> : <Text style={{color: 'white', fontSize: 40}}>{pilas.filter(pila => pila.status == 'BLOCO_EM_VALIDACAO').length}</Text>}
+              {isLoading ? <ActivityIndicator size={'large'}/> : <Text style={{color: 'white', fontSize: 30}}>{pilas.filter(pila => pila.status == 'BLOCO_EM_VALIDACAO').length}</Text>}
+            </View>
+            <View style={{width: '30%', marginTop: 30, backgroundColor: "#043F63", padding: 10, justifyContent: 'center', alignItems: 'center', borderRadius: 30}}>
+              <Text style={{color: 'white', textAlign: 'center'}}>Pilas Minerados</Text>
+              {isLoading ? <ActivityIndicator size={'large'}/> : <Text style={{color: 'white', fontSize: 30}}>{pilas.filter(pila => pila.status == 'AG_VALIDACAO').length}</Text>}
             </View>
           </View>
         </View>
